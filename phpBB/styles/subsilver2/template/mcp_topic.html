@@ -44,7 +44,7 @@
 	</tr>
 	<tr>
 		<td class="row1" nowrap="nowrap"><span class="gen">{L_MERGE_TOPIC_ID}</span></td>
-		<td class="row2" colspan="2"><input class="post" type="number" min="0" max="999999" name="to_topic_id" value="{TO_TOPIC_ID}" /> <a href="{U_SELECT_TOPIC}">{L_SELECT_TOPIC}</a></td>
+		<td class="row2" colspan="2"><input class="post" type="number" min="0" max="9999999999" name="to_topic_id" value="{TO_TOPIC_ID}" /> <a href="{U_SELECT_TOPIC}">{L_SELECT_TOPIC}</a></td>
 	</tr>
 	<!-- IF TO_TOPIC_INFO -->
 		<tr>
@@ -74,12 +74,14 @@
 
 		<td align="center"><b class="postauthor">{postrow.POST_AUTHOR_FULL}</b></td>
 		<td width="100%">
+			<!-- EVENT mcp_topic_postrow_post_details_before -->
 			<table width="100%" cellspacing="0" cellpadding="0" border="0">
 			<tr style="vertical-align: top;">
 				<td class="gensmall" nowrap="nowrap">&nbsp;<b>{L_POST_SUBJECT}{L_COLON}</b>&nbsp;</td>
 				<td class="gensmall" width="100%">{postrow.POST_SUBJECT}</td>
 			</tr>
 			</table>
+			<!-- EVENT mcp_topic_postrow_post_details_after -->
 		</td>
 		<td width="5%" align="center"><a href="{postrow.U_POST_DETAILS}" class="imageset">{INFO_IMG}</a></td>
 	</tr>

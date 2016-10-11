@@ -43,6 +43,7 @@
 			<!-- IF topicrow.S_MOVED_TOPIC and S_CAN_DELETE -->
 				[ <a href="{topicrow.U_DELETE_TOPIC}">{L_DELETE_SHADOW_TOPIC}</a> ]&nbsp;
 			<!-- ENDIF -->
+			<!-- EVENT topiclist_row_topic_title_after -->
 			</p>
 			<!-- EVENT topiclist_row_append -->
 		</td>
@@ -57,6 +58,7 @@
 		<td class="row1" colspan="8" align="center"><p class="gen">{L_NO_TOPICS}</p></td>
 	</tr>
 <!-- END topicrow -->
+<!-- EVENT mcp_forum_actions_before -->
 <!-- IF not S_MERGE_SELECT -->
 <tr>
 	<td class="cat" colspan="6" align="{S_CONTENT_FLOW_END}">
@@ -80,6 +82,7 @@
 	</td>
 </tr>
 <!-- ENDIF -->
+<!-- EVENT mcp_forum_actions_after -->
 </table>
 {S_FORM_TOKEN}
 </form>

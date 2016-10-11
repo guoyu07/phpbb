@@ -273,7 +273,7 @@ function mcp_forum_view($id, $mode, $action, $forum_info)
 			'TOPIC_ICON_IMG_WIDTH'	=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['width'] : '',
 			'TOPIC_ICON_IMG_HEIGHT'	=> (!empty($icons[$row['icon_id']])) ? $icons[$row['icon_id']]['height'] : '',
 			'UNAPPROVED_IMG'		=> ($topic_unapproved || $posts_unapproved) ? $user->img('icon_topic_unapproved', ($topic_unapproved) ? 'TOPIC_UNAPPROVED' : 'POSTS_UNAPPROVED') : '',
-			'DELETED_IMG'			=> ($topic_deleted) ? $user->img('icon_topic_deleted', 'POSTS_DELETED') : '',
+			'DELETED_IMG'			=> ($topic_deleted) ? $user->img('icon_topic_deleted', 'TOPIC_DELETED') : '',
 
 			'TOPIC_AUTHOR'				=> get_username_string('username', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
 			'TOPIC_AUTHOR_COLOUR'		=> get_username_string('colour', $row['topic_poster'], $row['topic_first_poster_name'], $row['topic_first_poster_colour']),
@@ -420,9 +420,11 @@ function merge_topics($forum_id, $topic_ids, $to_topic_id)
 	}
 
 	$sync_forums = array();
+	$topic_views = 0;
 	foreach ($topic_data as $data)
 	{
 		$sync_forums[$data['forum_id']] = $data['forum_id'];
+		$topic_views += $data['topic_views'];
 	}
 
 	$topic_data = $topic_data[$to_topic_id];
@@ -477,6 +479,12 @@ function merge_topics($forum_id, $topic_ids, $to_topic_id)
 
 		move_posts($post_id_list, $to_topic_id, false);
 		add_log('mod', $to_forum_id, $to_topic_id, 'LOG_MERGE', $topic_data['topic_title']);
+
+		// Update topic views count
+		$sql = 'UPDATE ' . TOPICS_TABLE . '
+				SET topic_views = ' . $topic_views . '
+				WHERE topic_id = ' . $to_topic_id;
+		$db->sql_query($sql);
 
 		// Message and return links
 		$success_msg = 'POSTS_MERGED_SUCCESS';
